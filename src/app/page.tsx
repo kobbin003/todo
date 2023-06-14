@@ -1,18 +1,14 @@
-import TodoItem from "@/components/TodoItem";
+// "use client";
 import { prisma } from "@/db";
+import { getTodo } from "@/actions/getTodos";
+import TodoItem from "@/components/TodoItem";
 import Image from "next/image";
 import Link from "next/link";
-
-export function getTodo() {
-	return prisma.todo.findMany();
-}
-export function createTodo() {
-	return prisma.todo.create({ data: { title: "third one", complete: false } });
-	// console.log("todocreated");
-}
+// function getTodos() {
+// 	return prisma.todo.findMany();
+// }
 export default async function Home() {
 	const todos = await getTodo();
-	// await createTodo();
 	return (
 		<>
 			<header className="flex justify-between items-center mb-4">
@@ -26,15 +22,7 @@ export default async function Home() {
 			</header>
 			<ul className="pl-4">
 				{todos.map((todo) => {
-					return (
-						// <li key={todo.id}>{todo.title}</li>
-						<TodoItem todo={todo}></TodoItem>
-						// <TodoItem
-						// 	id={todo.id}
-						// 	title={todo.title}
-						// 	complete={todo.complete}
-						// ></TodoItem>
-					);
+					return <TodoItem todo={todo}></TodoItem>;
 				})}
 			</ul>
 		</>

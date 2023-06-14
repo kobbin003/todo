@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+import { updateTodo } from "@/actions/updateTodo";
+import React, { ChangeEvent } from "react";
 type Todo = {
 	id: string;
 	title: string;
@@ -6,6 +8,11 @@ type Todo = {
 };
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
+	const handleOnChange = (e: ChangeEvent<HTMLInputElement>, id: string) => {
+		updateTodo({ id: todo.id, complete: !todo.complete });
+		console.log("checked");
+	};
+
 	return (
 		<li
 			key={todo.id}
@@ -16,6 +23,8 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
 				name=""
 				id={todo.id}
 				className="cursor-pointer peer"
+				onChange={(e) => handleOnChange(e, todo.id)}
+				defaultChecked={todo.complete}
 			/>
 			<label
 				htmlFor={todo.id}
@@ -26,13 +35,5 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
 		</li>
 	);
 };
-// type Todo = {
-// 	id: string;
-// 	title: string;
-// 	complete: boolean;
-// };
-// const TodoItem = ({ id, title, complete }: Todo) => {
-// 	return <li key={id}>{title}</li>;
-// };
 
 export default TodoItem;
