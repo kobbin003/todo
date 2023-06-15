@@ -1,12 +1,10 @@
-// "use client";
 import { prisma } from "@/db";
 import { getTodo } from "@/actions/getTodos";
 import TodoItem from "@/components/TodoItem";
 import Image from "next/image";
 import Link from "next/link";
-// function getTodos() {
-// 	return prisma.todo.findMany();
-// }
+import { useState } from "react";
+
 export default async function Home() {
 	const todos = await getTodo();
 	return (
